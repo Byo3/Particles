@@ -24,13 +24,6 @@ constexpr std::array<sf::Color, 10> hexColors =
     };
 }; // hexColor namespace
 
-struct ParticlesElements 
-{
-    sf::Color    ColorParticle;
-    sf::Vector2f PositionParticle;
-    const int    Radius;
-};
-
 struct Generators
 {
     const static int indexGenerator()
@@ -48,12 +41,22 @@ struct Generators
 struct Particle : Generators
 {
     sf::CircleShape    particle;
-    float              radius;
 };
 
+struct ParticlesElements 
+{
+    sf::Color          ColorParticle;
+    sf::Vector2f       PositionParticle;
+    const int          Radius;
+    float y_velocity  = 150.f;
+    int x_velocity  = static_cast<float>((Generators::indexGenerator() - 5.f) * 50.f);
+};
 struct ParticlesManager : Particle
 {
     static std::deque<ParticlesElements> list_particle;
+    const float energy_loss = 0.95f;
+    const float fps         = 60;
+    const float delta_time  = 1 / fps;
 
     static void addParticles(sf::RenderWindow& window)
     {
@@ -61,21 +64,50 @@ struct ParticlesManager : Particle
         // add particles in the particle list
         if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
         {
-            // Set Color and position
+            // Set Color, position and radius to a particle.
             list_particle.push_back({
+                // Color
                 HexColors::hexColors[index - 1], 
+                //Position
                 sf::Vector2f(sf::Mouse::getPosition(window)),
-                index * 10
+                // Radius
+                index * 5
             });
         }
     }
-
-    void draw(sf::RenderWindow& window)
+    sf::Vector2f aplyingGravity(ParticlesElements& elements,
+        int width,
+        int height,
+        float gravity)
     {
-        for (const auto& single_particle : list_particle)
-        {
-            // Add gravity in here.
+        elements.y_velocity += gravity * delta_time;
 
+        elements.PositionParticle.x += elements.x_velocity * delta_time;
+        elements.PositionParticle.y += elements.y_velocity * delta_time;
+
+        if (elements.PositionParticle.y < 0)
+        {
+            elements.PositionParticle.y = 0;
+            elements.y_velocity = -elements.y_velocity * energy_loss;
+        } else if (elements.PositionParticle.y > height - (elements.Radius * 2)) 
+        {
+            elements.y_velocity = -elements.y_velocity * energy_loss;
+        } else if (elements.PositionParticle.x < 0)
+        {
+            elements.PositionParticle.x = 0;
+            elements.x_velocity = -elements.x_velocity * energy_loss;
+        } else if (elements.PositionParticle.x > width - (elements.Radius * 2))
+        {
+            elements.x_velocity = -elements.x_velocity * energy_loss;
+        }
+
+        return elements.PositionParticle;
+    }
+
+    void draw(sf::RenderWindow& window, float gravity)
+    {
+        for (auto& single_particle : list_particle)
+        {
             /**
              * Particles values
              * ---------------------
@@ -84,12 +116,18 @@ struct ParticlesManager : Particle
              * Radius int 
              */
             particle.setFillColor(single_particle.ColorParticle);
-            particle.setPosition(single_particle.PositionParticle);
-            particle.setRadius(single_particle.Radius);
 
+            particle.setPosition(aplyingGravity(single_particle, 800, 600, gravity));
+
+            particle.setRadius(single_particle.Radius);
             // Drawing each particle
             window.draw(particle);
         }
+    }
+    static void ballsCreated()
+    {
+        // It prints how many was created
+        std::cout << "Balls created: " << list_particle.size() << "\n";
     }
 };
 
@@ -100,9 +138,10 @@ int main()
     const unsigned int width  = 800;
     const unsigned int height = 600;
 
+    const float gravity = 500;
+
     sf::RenderWindow window(sf::VideoMode({width, height}), "Particles");
     ParticlesManager particle;
-
     window.setFramerateLimit(60);
     while (window.isOpen())
     {
@@ -122,9 +161,11 @@ int main()
                 }
             }
         }
-
+        
         window.clear();
-        particle.draw(window);
+        particle.draw(window, gravity);
         window.display();
     }
+    particle.ballsCreated();
+    return 0;
 }
