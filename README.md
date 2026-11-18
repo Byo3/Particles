@@ -1,46 +1,46 @@
-# Particle Simulation
+# ⚛️ Particle Simulation
 
 A simple 2D particle simulation built with **C++** and **SFML 3**. The project explores graphical programming, object management, random generation, and basic physics simulation.
 
-## Overview
+## 📖 Overview
 
 The application creates colorful circular particles when the user clicks the left mouse button. Each particle has its own color, position, radius, and velocity data.
 
 The main goal is to develop a small simulation while exploring fundamental concepts used in game development and real-time graphics programming.
 
-![particle photo](Particles.png)
+![Particle Simulation](Particles.png)
 
-## Features
+## ✨ Features
 
-- **Particle generation:** Create particles using the left mouse button.
-- **Random colors:** Each particle receives a randomly selected color from a predefined palette.
-- **Variable radius:** Particle size is determined by its randomly generated color index.
-- **Individual particle data:** Each particle stores its own position, radius, and velocity.
-- **Real-time rendering:** Particles are rendered using SFML.
+- 🖱️ **Particle generation:** Create particles using the left mouse button.
+- 🎨 **Random colors:** Each particle receives a randomly selected color from a predefined palette.
+- 📏 **Variable radius:** Particle size is determined by its randomly generated color index.
+- 📦 **Individual particle data:** Each particle stores its own position, radius, and velocity.
+- 🖥️ **Real-time rendering:** Particles are rendered using SFML.
 
-## Technologies
+## 🛠️ Technologies
 
-- C++
-- SFML 3
-- CMake
-- C++17
-  
-## Getting Started
+- 💻 C++
+- 🎮 SFML 3
+- ⚙️ CMake
+- 📚 C++17
 
-### Requirements
+## 🚀 Getting Started
+
+### 📋 Requirements
 
 - A C++17-compatible compiler.
 - CMake 3.28 or newer.
 - SFML 3.1.0.
 - A compatible graphics environment.
 
-### Build
+### 🔧 Build
 
 Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd Particle-Simulation
+git clone https://github.com/Byo3/Particles.git
+cd Particles
 ```
 
 Configure the project:
@@ -63,35 +63,35 @@ Run the executable:
 
 *The executable path may vary depending on your CMake configuration.*
 
-## Controls
+## 🎮 Controls
 
 | Input | Action |
 |---|---|
-| Left mouse button | Create a particle |
-| Window close button | Exit the application |
+| 🖱️ Left mouse button | Create a particle |
+| ❌ Window close button | Exit the application |
 
-## Project Structure
+## 🧩 Project Structure
 
 The current implementation is organized around three main components:
 
-- **Generators:** Handles random index generation.
-- **ParticlesElements:** Stores individual particle properties.
-- **ParticlesManager:** Manages particle creation, simulation logic, and rendering.
+- 🎲 **Generators:** Handles random index generation.
+- ⚪ **ParticlesElements:** Stores individual particle properties.
+- 📦 **ParticlesManager:** Manages particle creation, simulation logic, and rendering.
 
-## Development Roadmap
+## 🗺️ Development Roadmap
 
 The project is still under development. Planned improvements include:
 
-- [ ] Implement physically consistent gravity using acceleration and velocity.
-- [ ] Introduce dynamic delta time using `sf::Clock`.
-- [ ] Improve collision detection using particle geometry.
-- [ ] Implement realistic bouncing and energy loss.
-- [ ] Separate physics updates from rendering.
-- [ ] Support multiple particles with independent physical behavior.
-- [ ] Investigate performance optimizations for large particle counts.
-- [ ] Improve portability across different machines.
+- [ ] 🌍 Implement physically consistent gravity using acceleration and velocity.
+- [ ] ⏱️ Introduce dynamic delta time using `sf::Clock`.
+- [ ] 📐 Improve collision detection using particle geometry.
+- [ ] 🏀 Implement realistic bouncing and energy loss.
+- [ ] 🔄 Separate physics updates from rendering.
+- [ ] 🔢 Support multiple particles with independent physical behavior.
+- [ ] ⚡ Investigate performance optimizations for large particle counts.
+- [ ] 🌐 Improve portability across different machines.
 
-## Learning Objectives
+## 🎯 Learning Objectives
 
 This project is intended as a practical exercise in:
 
@@ -102,6 +102,6 @@ This project is intended as a practical exercise in:
 - Real-time rendering.
 - Performance considerations in graphical applications.
 
-## License
+## 🤖 AI Disclosure
 
-This project is currently provided for educational and personal development purposes.
+This README was created with the assistance of **ChatGPT**.
